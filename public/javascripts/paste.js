@@ -5,48 +5,58 @@
 var path = require('path'),
     async = require('async'),
     lwip = require('lwip');
+fs = require('fs');
 
 
-let reduce = arr => async.map(arr, open, function (err, result) {
-    result.reduce(paste).writeFile('paste111.jpg', err => console.log(err));
-});
-reduce(["backgrounds", "5 min home 3 min AMRAP", "backgrounds", "filter", "foreground elements"]);
+let reduce = arr => async.map(arr, open, (err, result) => async.reduce(result, 0, pasteAsync, writeFile));
+reduce(["backgrounds", "5 min home 3 min AMRAP", "filter", "foreground elements"]);
+exports.reduce = reduce;
 
-function paste(image, next, index) {
-    if (image)
-        image.paste(0, 0, next, function (err, image) {
-            if (err)
-                console.log(err);
-            else console.log("past: " + index);
-            return image;
-        });
-    else {
-        console.log("not: " + index);
-        return next;
+function getFiles(dir) {
+    try {
+        fileList = [];
+        let files = fs.readdirSync(dir);
+        for (let i in files) {
+            if (!files.hasOwnProperty(i)) continue;
+            let name = dir + '/' + files[i];
+            if (!fs.statSync(name).isDirectory() && name.toLocaleLowerCase().endsWith(".png")) {
+                fileList.push(name);
+            }
+        }
+    } catch (err) {
+        logError(err);
     }
+    return fileList;
 }
+
+
 function open(folder, callback) {
-    lwip.open('../images/workouts/' + folder + '/1.png', function (err, image) {
-        if (err)
-            console.log(err);
-        else console.log("open:" + folder);
+    let files = getFiles('../images/workouts/' + folder);
+    let file = files[getRandomInt(0, files.length)];
+    if (file)
+        lwip.open(file, function (err, image) {
+            console.log("open: " + folder + '/' + file);
         callback(err, image);
     });
+    else logError(folder + " is empty");
+}
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function pasteAsync(image, next, callback) {
+    if (image != 0)
+        image.paste(0, 0, next, (err, image) => callback(null, image));
+    else
+        callback(null, next);
+}
+function writeFile(err, image) {
+    logError(err);
+    image.writeFile('./paste111.png', logError);
+}
 
-// async.waterfall([
-//         function (next) {
-//             lwip.open('../images/workouts/backgrounds/1.png', next);
-//         },
-//         (reduce, next) => lwip.open('../images/workouts/5 min home 3 min AMRAP/1.png', (err, clone) => reduce.paste(0, 0, clone, () => next(err, reduce))),
-//         (reduce, next) => lwip.open('../images/workouts/filter/1.png', (err, clone) => reduce.paste(0, 0, clone, () => next(err, reduce))),
-//         (reduce, next) => lwip.open('../images/workouts/foreground elements/1.png', (err, clone) => reduce.paste(0, 0, clone, () => next(err, reduce))),
-//     ],
-//     function (err, reduce) {
-//         reduce.writeFile('paste111.jpg', function (err) {
-//             if (err) return console.log(err);
-//             else console.log('done');
-//         });
-//     });
-
+function logError(err) {
+    if (err) console.log(err);
+}
