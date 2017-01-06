@@ -9,7 +9,7 @@ fs = require('fs');
 
 
 let reduce = arr => async.map(arr, open, (err, result) => async.reduce(result, 0, pasteAsync, writeFile));
-reduce(["backgrounds", "5 min home 3 min AMRAP", "filter", "foreground elements"]);
+// reduce(["backgrounds", "5 min home 3 min AMRAP", "filter", "foreground elements"]);
 exports.reduce = reduce;
 
 function getFiles(dir) {
@@ -35,7 +35,7 @@ function open(folder, callback) {
     let file = files[getRandomInt(0, files.length)];
     if (file)
         lwip.open(file, function (err, image) {
-            console.log("open: " + folder + '/' + file);
+            console.log("open: "+  file);
         callback(err, image);
     });
     else logError(folder + " is empty");
@@ -54,7 +54,8 @@ function pasteAsync(image, next, callback) {
 }
 function writeFile(err, image) {
     logError(err);
-    image.writeFile('./paste111.png', logError);
+    console.log("Generated!")
+    image.writeFile('../public/paste.png', logError);
 }
 
 function logError(err) {
