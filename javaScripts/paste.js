@@ -30,7 +30,7 @@ let reduce = (arr, done) => {
 
 
     function open(folder, callback) {
-        let files = getFiles('../images/' + folder);
+        let files = getFiles('./images/' + folder);
         let file = files[getRandomInt(0, files.length)];
         if (file)
             lwip.open(file, function (err, image) {
@@ -55,7 +55,7 @@ let reduce = (arr, done) => {
         if (!err)
             {
                 let name = new Date() + 'paste.png';
-                image.writeFile('../public/' + '../public/' + name, function (err) {
+                image.writeFile('./public/' + name, function (err) {
                                 logError(err);
                                 done(name);
                             });
