@@ -11,8 +11,7 @@ router.get('/', function(req, res, next) {
 
     async.each(config, function (item, callback) {
         if (req.query[item.key] == item.value){
-            paste.reduce(item.then); //TODO add Promise
-            callback("found the key");
+            paste.reduce(item.then, callback);
         }
         else callback;
     }, function (err) {
