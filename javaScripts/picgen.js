@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 let paste = require("./paste");
-let config = require("./config").config;
+let config = require("../config");
 let async = require("async");
 var path = require('path');
 

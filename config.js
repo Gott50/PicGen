@@ -1,4 +1,4 @@
-exports.config = [
+module.exports = [
     {
         key: "length",
         value: "5",
