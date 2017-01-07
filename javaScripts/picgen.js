@@ -3,6 +3,7 @@ var router = express.Router();
 let paste = require("./paste");
 let config = require("./config").config;
 let async = require("async");
+var path = require('path');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -16,7 +17,7 @@ router.get('/', function(req, res, next) {
         else callback;
     }, function (err) {
         console.log(err);
-        res.render('index', {})
+        // res.sendFile(path.join(__dirname + "/../public/paste.png"));
     });
 });
 
