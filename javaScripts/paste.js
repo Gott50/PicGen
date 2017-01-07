@@ -53,9 +53,12 @@ function pasteAsync(image, next, callback) {
         callback(null, next);
 }
 function writeFile(err, image) {
-    logError(err);
-    console.log("Generated!")
-    image.writeFile('../public/paste.png', logError);
+    if (!err)
+        image.writeFile('../public/paste.png', function (err) {
+            logError(err);
+            console.log("Generated!");
+        });
+    else logError(err);
 }
 
 function logError(err) {
