@@ -30,7 +30,7 @@ let reduce = (arr, done) => {
 
 
     function open(folder, callback) {
-        let files = getFiles('../images/workouts/' + folder);
+        let files = getFiles('../images/' + folder);
         let file = files[getRandomInt(0, files.length)];
         if (file)
             lwip.open(file, function (err, image) {
@@ -53,11 +53,13 @@ let reduce = (arr, done) => {
     }
     function writeFile(err, image) {
         if (!err)
-            image.writeFile('../public/paste.png', function (err) {
-                logError(err);
-                console.log("Generated!");
-                done("done");
-            });
+            {
+                let name = new Date() + 'paste.png';
+                image.writeFile('../public/' + '../public/' + name, function (err) {
+                                logError(err);
+                                done(name);
+                            });
+            }
         else logError(err);
     }
 

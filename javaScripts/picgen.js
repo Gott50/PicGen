@@ -16,7 +16,10 @@ router.get('/', function(req, res, next) {
         else callback;
     }, function (err) {
         console.log(err);
-        res.sendFile(path.join(__dirname + "/../public/paste.png"));
+        if (err.endsWith(".png")) {
+            let file = path.join(__dirname + "/../public/" + err);
+            res.sendFile(file, () => fs.unlink(file));
+        }
     });
 });
 
