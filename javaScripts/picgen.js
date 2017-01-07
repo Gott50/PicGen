@@ -9,16 +9,27 @@ var path = require('path');
 router.get('/', function(req, res, next) {
     console.log(req.query);
 
+    let sendFile = function (err) {
+        let file = path.join(__dirname + "/../public/" + err);
+        res.sendFile(file, () => fs.unlink(file));
+    };
+
     async.each(config, function (item, callback) {
+        console.log("try: " + item.key + ": " + item.value);
         if (req.query[item.key] == item.value){
             paste.reduce(item.then, callback);
         }
-        else callback;
+        else {
+            callback(null);
+        }
     }, function (err) {
-        console.log(err);
-        if (err.endsWith(".png")) {
-            let file = path.join(__dirname + "/../public/" + err);
-            res.sendFile(file, () => fs.unlink(file));
+        console.log("send: "+ err);
+        if (!err) {
+            paste.reduce(config[0].then, function (err) {
+                sendFile(err);
+            });
+        } else if (err.endsWith(".png")) {
+            sendFile(err);
         }
     });
 });
