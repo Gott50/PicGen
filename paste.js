@@ -6,9 +6,12 @@ var path = require('path'),
     async = require('async'),
     lwip = require('lwip');
 fs = require('fs');
+config = require("./config");
+path = require("path");
 
 
-let reduce = (arr, done) => {
+let reduce = (arr, done, folder) => {
+    folder = folder || config[0].key + "=" + config[0].value;
     return async.map(arr, open, (err, result) => async.reduce(result, 0, pasteAsync, writeFile));
 
     function getFiles(dir) {
@@ -23,7 +26,8 @@ let reduce = (arr, done) => {
                 }
             }
         } catch (err) {
-            logError(err);
+            let folder = path.join(__dirname)
+            console.log(err, "folder: "+ folder);
         }
         return fileList;
     }
@@ -55,7 +59,7 @@ let reduce = (arr, done) => {
         if (!err)
             {
                 let name = new Date() + 'paste.png';
-                image.writeFile('./public/' + name, function (err) {
+                image.writeFile('./public/queue/' + folder + "/" + name, function (err) {
                                 logError(err);
                                 done(name);
                             });
@@ -67,7 +71,15 @@ let reduce = (arr, done) => {
         if (err) console.log(err);
     }
 };
-// reduce(["backgrounds", "5 min home 3 min AMRAP", "filter", "foreground elements"]);
+
+config.forEach((entry) => {
+    let folder = entry.key + "=" + entry.value;
+    fs.mkdir(path.join(__dirname + "/public/queue/" + folder), () =>{
+        reduce(entry.then, err => console.log(folder + ": " + err), folder)
+        }
+    );
+});
+
 exports.reduce = reduce;
 
 

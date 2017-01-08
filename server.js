@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var picgen = require('./javaScripts/picgen');
+var picgen = require('./picgen');
 var index = require('./routes/src');
 
 var app = express();
