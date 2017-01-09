@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
     let sendFile = function (img) {
         let file = path.join(__dirname + "/" + img);
-        res.sendFile(file, () => fs.unlink(file, () => console.log("send dele:" + img)));
+        res.sendFile(file, () => fs.unlink(file, () => console.log("send dele: " + img)));
     };
     let sendFileSave = function (img) {
         let file = path.join(__dirname + "/" + img);
