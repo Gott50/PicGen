@@ -74,14 +74,14 @@ let reduce = (arr, done, folder) => {
     }
 };
 
-config.forEach((entry) => {
-    let folder = entry.key + "=" + entry.value;
-    fs.mkdir(path.join(__dirname + "/public/queue"),
-        () => fs.mkdir(path.join(__dirname + "/public/queue/" + folder),
-            () => reduce(entry.then, err => console.log(folder + ": " + err), folder)
-        )
-    );
-});
+// config.forEach((entry) => {
+//     let folder = entry.key + "=" + entry.value;
+//     fs.mkdir(path.join(__dirname + "/public/queue"),
+//         () => fs.mkdir(path.join(__dirname + "/public/queue/" + folder),
+//             () => reduce(entry.then, err => console.log(folder + ": " + err), folder)
+//         )
+//     );
+// });
 
 exports.reduce = reduce;
 
