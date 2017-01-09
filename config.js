@@ -124,4 +124,64 @@ module.exports = [
         value: "60",
         then: ["workouts/backgrounds", "workouts/outdoor/60 min outdoor 30 min AMRAP", "workouts/filter", "workouts/foreground elements"],
     },
+    {
+        key: "gymlength",
+        value: "5",
+        then: ["workouts/backgrounds", "workouts/gym/5 min gym 3 min AMRAP", "workouts/filter", "workouts/foreground elements"],
+    },
+    {
+        key: "gymlength",
+        value: "10",
+        then: ["workouts/backgrounds", "workouts/gym/10 min gym 7 min AMRAP", "workouts/filter", "workouts/foreground elements"],
+    },
+    {
+        key: "gymlength",
+        value: "15",
+        then: ["workouts/backgrounds", "workouts/gym/15 min gym 10 min AMRAP", "workouts/filter", "workouts/foreground elements"],
+    },
+    {
+        key: "gymlength",
+        value: "20",
+        then: ["workouts/backgrounds", "workouts/gym/20 min gym 13 min AMRAP", "workouts/filter", "workouts/foreground elements"],
+    },
+    {
+        key: "gymlength",
+        value: "25",
+        then: ["workouts/backgrounds", "workouts/gym/25 min gym 15 min AMRAP", "workouts/filter", "workouts/foreground elements"],
+    },
+    {
+        key: "gymlength",
+        value: "30",
+        then: ["workouts/backgrounds", "workouts/gym/30 min gym 20 min AMRAP", "workouts/filter", "workouts/foreground elements"],
+    },
+    {
+        key: "gymlength",
+        value: "35",
+        then: ["workouts/backgrounds", "workouts/gym/35 min gym 25 min AMRAP", "workouts/filter", "workouts/foreground elements"],
+    },
+    {
+        key: "gymlength",
+        value: "40",
+        then: ["workouts/backgrounds", "workouts/gym/40 min gym 30 min AMRAP", "workouts/filter", "workouts/foreground elements"],
+    },
+    {
+        key: "gymlength",
+        value: "45",
+        then: ["workouts/backgrounds", "workouts/gym/45 min gym 30 min AMRAP", "workouts/filter", "workouts/foreground elements"],
+    },
+    {
+        key: "gymlength",
+        value: "50",
+        then: ["workouts/backgrounds", "workouts/gym/50 min gym 30 min AMRAP", "workouts/filter", "workouts/foreground elements"],
+    },
+    {
+        key: "gymlength",
+        value: "55",
+        then: ["workouts/backgrounds", "workouts/gym/55 min gym 30 min AMRAP", "workouts/filter", "workouts/foreground elements"],
+    },
+    {
+        key: "gymlength",
+        value: "60",
+        then: ["workouts/backgrounds", "workouts/gym/60 min gym 30 min AMRAP", "workouts/filter", "workouts/foreground elements"],
+    },
 ];
