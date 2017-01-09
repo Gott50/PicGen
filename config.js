@@ -31,11 +31,6 @@ module.exports = [
     },
     {
         key: "length",
-        value: "30",
-        then: ["workouts/backgrounds", "workouts/30 min home 20 min AMRAP", "workouts/filter", "workouts/foreground elements"],
-    },
-    {
-        key: "length",
         value: "35",
         then: ["workouts/backgrounds", "workouts/35 min home 25 min AMRAP", "workouts/filter", "workouts/foreground elements"],
     },
