@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
     };
     async.each(config, function (item, callback) {
         let folder = item.key + "=" + item.value;
-        console.log("try: " + folder);
+        // console.log("try: " + folder);
         if (req.query[item.key] == item.value){
             sendEntry(item);
             paste.reduce(item.then, callback, folder);
