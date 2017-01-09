@@ -20,15 +20,17 @@ router.get('/', function(req, res, next) {
 
     let sendEntry = function (entry) {
         let keyValue = entry.key + "=" + entry.value;
-        let dir = "./public/queue/" + keyValue;
-        let files = fs.readdirSync(dir);
-        if (files[1])
-            sendFile(dir + "/" + files[1]);
-        else sendFileSave("./public/save/" + keyValue + "/!first.png");
+        try {
+            let dir = "./public/queue/" + keyValue;
+            let files = fs.readdirSync(dir);
+            sendFile(dir + "/" + files[0]);
+        } catch (err) {
+            console.log("send save Pic because of: " + err);
+            sendFileSave("./public/save/" + keyValue + "/!first.png")
+        }
     };
     async.each(config, function (item, callback) {
         let folder = item.key + "=" + item.value;
-        // console.log("try: " + folder);
         if (req.query[item.key] == item.value){
             sendEntry(item);
             paste.reduce(item.then, callback, folder);

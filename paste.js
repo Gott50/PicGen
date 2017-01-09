@@ -60,12 +60,17 @@ let reduce = (arr, done, folder) => {
     function writeFile(err, image) {
         if (!err)
             {
+                fs.mkdir(path.join(__dirname + "/public/queue"),
+                    () => fs.mkdir(path.join(__dirname + "/public/queue/" + folder),
+                        () => {
                 let name = new Date() + 'paste.png';
                 //let name = '!first.png';
                 image.writeFile('./public/queue/' + folder + "/" + name, function (err) {
                                 logError(err);
                                 done(name);
                             });
+                        }
+                    ));
             }
         else logError(err);
     }
@@ -74,8 +79,6 @@ let reduce = (arr, done, folder) => {
         if (err) console.log(err);
     }
 };
-
-async.eachSeries(config, generateInQueue);
 
 function generateInQueue(entry, callback) {
     let folder = entry.key + "=" + entry.value;
@@ -88,6 +91,8 @@ function generateInQueue(entry, callback) {
         )
     );
 }
+
+async.eachSeries(config, generateInQueue);
 
 exports.reduce = reduce;
 
