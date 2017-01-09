@@ -96,11 +96,6 @@ module.exports = [
     },
     {
         key: "outdoorlength",
-        value: "30",
-        then: ["workouts/backgrounds", "workouts/outdoor/30 min outdoor 20 min AMRAP", "workouts/filter", "workouts/foreground elements"],
-    },
-    {
-        key: "outdoorlength",
         value: "35",
         then: ["workouts/backgrounds", "workouts/outdoor/35 min outdoor 25 min AMRAP", "workouts/filter", "workouts/foreground elements"],
     },
