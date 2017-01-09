@@ -19,11 +19,12 @@ router.get('/', function(req, res, next) {
     };
 
     let sendEntry = function (entry) {
-        let dir = "./public/queue/" + entry.key + "=" + entry.value;
+        let keyValue = entry.key + "=" + entry.value;
+        let dir = "./public/queue/" + keyValue;
         let files = fs.readdirSync(dir);
         if (files[1])
             sendFile(dir + "/" + files[1]);
-        else sendFileSave(dir + "/" + files[0]);
+        else sendFileSave("./public/save/" + keyValue + "/!first.png");
     };
     async.each(config, function (item, callback) {
         let folder = item.key + "=" + item.value;
