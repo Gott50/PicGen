@@ -61,6 +61,7 @@ let reduce = (arr, done, folder) => {
         if (!err)
             {
                 let name = new Date() + 'paste.png';
+                //let name = '!first.png';
                 image.writeFile('./public/queue/' + folder + "/" + name, function (err) {
                                 logError(err);
                                 done(name);
