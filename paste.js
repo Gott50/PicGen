@@ -17,24 +17,6 @@ let reduce = (arr, done, folder) => {
     folder = folder || config[0].key + "=" + config[0].value;
     return async.map(arr, open, (err, result) => async.reduce(result, 0, pasteAsync, writeFile));
 
-    function getFiles(dir) {
-        try {
-            fileList = [];
-            let files = fs.readdirSync(dir);
-            for (let i in files) {
-                if (!files.hasOwnProperty(i)) continue;
-                let name = dir + '/' + files[i];
-                if (!fs.statSync(name).isDirectory() && name.toLocaleLowerCase().endsWith(".png")) {
-                    fileList.push(name);
-                }
-            }
-        } catch (err) {
-            let folder = path.join(__dirname);
-            console.log(err, "folder: "+ folder);
-        }
-        return fileList;
-    }
-
     function open(folder, callback) {
         let files = getFiles('./images/' + folder);
         let file = files[getRandomInt(0, files.length)];
@@ -45,17 +27,13 @@ let reduce = (arr, done, folder) => {
             });
         else logError(folder + " is empty");
     }
-    function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
-    }
 
     function pasteAsync(image, next, callback) {
-        if (image != 0)
+        if (image != 0) {
             image.paste(0, 0, next, (err, image) => callback(null, image));
-        else
-            callback(null, next);
+        }
+    else
+        callback(null, next);
     }
     function writeFile(err, image) {
         if (!err)
@@ -72,7 +50,30 @@ let reduce = (arr, done, folder) => {
                         }
                     ));
             }
-        else logError(err);
+    else logError(err);
+    }
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+    function getFiles(dir) {
+        try {
+            fileList = [];
+            let files = fs.readdirSync(dir);
+            for (let i in files) {
+                if (!files.hasOwnProperty(i)) continue;
+                let name = dir + '/' + files[i];
+                if (!fs.statSync(name).isDirectory() && name.toLocaleLowerCase().endsWith(".png")) {
+                    fileList.push(name);
+                }
+            }
+        } catch (err) {
+            let folder = path.join(__dirname);
+            console.log(err, "folder: "+ folder);
+        }
+        return fileList;
     }
 
     function logError(err) {

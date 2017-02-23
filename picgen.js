@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 let paste = require("./paste");
 let config = require("./config");
-let async = require("async");
+const async = require("async");
 const path = require('path');
 
 router.get('/ping', function (req, res) {
