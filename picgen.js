@@ -1,12 +1,16 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 let paste = require("./paste");
 let config = require("./config");
 let async = require("async");
-var path = require('path');
+const path = require('path');
+
+router.get('/ping', function (req, res) {
+    res.send('pong');
+});
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res) {
     console.log(req.query);
 
     let sendFile = function (img) {
@@ -24,6 +28,7 @@ router.get('/', function(req, res, next) {
             let dir = "./public/queue/" + keyValue;
             let files = fs.readdirSync(dir);
             sendFile(dir + "/" + files[0]);
+
         } catch (err) {
             console.log("send save Pic because of: " + err);
             sendFileSave("./public/save/" + keyValue + "/!first.png")
