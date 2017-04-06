@@ -14,7 +14,7 @@ router.get('/', function (req, res) {
     console.log(req.query);
 
     let sendFile = function (img) {
-        if(img === undefined) throw new Error("Image not in queue");
+        if(!img) throw new Error("no Image in queue");
         let file = path.join(__dirname + "/" + img);
         res.sendFile(file, () => fs.unlink(file, () => console.log("send dele: " + img)));
     };
