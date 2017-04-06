@@ -179,4 +179,9 @@ module.exports = [
         value: "60",
         then: ["workouts/backgrounds", "workouts/gym/60 min gym 30 min AMRAP", "workouts/filter", "workouts/foreground elements"],
     },
+    {
+        key: "wynlength",
+        value: "5",
+        then: [],
+    },
 ];
