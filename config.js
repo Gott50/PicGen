@@ -204,4 +204,39 @@ module.exports = [
         value: "25",
         then: [],
     },
+    {
+        key: "wynlength",
+        value: "30",
+        then: [],
+    },
+    {
+        key: "wynlength",
+        value: "35",
+        then: [],
+    },
+    {
+        key: "wynlength",
+        value: "40",
+        then: [],
+    },
+    {
+        key: "wynlength",
+        value: "45",
+        then: [],
+    },
+    {
+        key: "wynlength",
+        value: "50",
+        then: [],
+    },
+    {
+        key: "wynlength",
+        value: "55",
+        then: [],
+    },
+    {
+        key: "wynlength",
+        value: "60",
+        then: [],
+    },
 ];
