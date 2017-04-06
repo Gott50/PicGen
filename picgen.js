@@ -38,7 +38,6 @@ router.get('/', function (req, res) {
         let folder = item.key + "=" + item.value;
         if (req.query[item.key] == item.value){
             sendEntry(item);
-            if (item.then && item.then.length >= 1)
             paste.reduce(item.then, callback, folder);
         }
         else {

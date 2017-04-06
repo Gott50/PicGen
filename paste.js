@@ -14,8 +14,10 @@ let reduce = (arr, done, folder) => {
     done = done || function (name) {
             console.log("done: " + name);
         };
-    folder = folder || config[0].key + "=" + config[0].value;
-    return async.map(arr, open, (err, result) => async.reduce(result, 0, pasteAsync, writeFile));
+    if (item.then && item.then.length > 0) {
+        folder = folder || config[0].key + "=" + config[0].value;
+        return async.map(arr, open, (err, result) => async.reduce(result, 0, pasteAsync, writeFile));
+    } else done("empty then in config");
 
     function open(folder, callback) {
         let files = getFiles('./images/' + folder);
