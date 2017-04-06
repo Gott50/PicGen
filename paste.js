@@ -14,7 +14,7 @@ let reduce = (arr, done, folder) => {
     done = done || function (name) {
             console.log("done: " + name);
         };
-    if (item.then && item.then.length > 0) {
+    if (arr && arr.length > 0) {
         folder = folder || config[0].key + "=" + config[0].value;
         return async.map(arr, open, (err, result) => async.reduce(result, 0, pasteAsync, writeFile));
     } else done("empty then in config");
