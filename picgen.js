@@ -14,7 +14,6 @@ router.get('/', function (req, res) {
     console.log(req.query);
 
     let sendFile = function (img) {
-        if(!img) throw new Error("no Image in queue");
         let file = path.join(__dirname + "/" + img);
         res.sendFile(file, () => fs.unlink(file, () => console.log("send dele: " + img)));
     };
@@ -28,6 +27,7 @@ router.get('/', function (req, res) {
         try {
             let dir = "./public/queue/" + keyValue;
             let files = fs.readdirSync(dir);
+            if(files.length < 1) throw new Error("no Image in queue");
             sendFile(dir + "/" + files[0]);
 
         } catch (err) {
