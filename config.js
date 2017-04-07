@@ -239,4 +239,64 @@ module.exports = [
         value: "60",
         then: [],
     },
+    {
+        key: "wynlengthoutdoor",
+        value: "5",
+        then: [],
+    },
+   {
+        key: "wynlengthoutdoor",
+        value: "10",
+        then: [],
+    },
+    {
+        key: "wynlengthoutdoor",
+        value: "15",
+        then: [],
+    },
+    {
+        key: "wynlengthoutdoor",
+        value: "20",
+        then: [],
+    },
+    {
+        key: "wynlengthoutdoor",
+        value: "25",
+        then: [],
+    },
+    {
+        key: "wynlengthoutdoor",
+        value: "30",
+        then: [],
+    },
+    {
+        key: "wynlengthoutdoor",
+        value: "35",
+        then: [],
+    },
+    {
+        key: "wynlengthoutdoor",
+        value: "40",
+        then: [],
+    },
+    {
+        key: "wynlengthoutdoor",
+        value: "45",
+        then: [],
+    },
+    {
+        key: "wynlengthoutdoor",
+        value: "50",
+        then: [],
+    },
+    {
+        key: "wynlengthoutdoor",
+        value: "55",
+        then: [],
+    },
+    {
+        key: "wynlengthoutdoor",
+        value: "60",
+        then: [],
+    },
 ];
