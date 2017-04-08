@@ -32,7 +32,8 @@ router.get('/', function (req, res) {
 
         } catch (err) {
             console.log("send save Pic because of: " + err);
-            sendFileSave("./public/save/" + keyValue + "/!first.png")
+            let dir = "./public/save/" + keyValue;
+            sendFileSave(dir + "/" + fs.readdirSync(dir)[0])
         }
     };
     async.each(config, function (item, callback) {
