@@ -8,12 +8,9 @@ var path = require('path'),
 fs = require('fs');
 config = require("./config");
 path = require("path");
+var mkdirp = require('mkdirp');
 
-
-let reduce = (arr, done, folder) => {
-    done = done || function (name) {
-            console.log("done: " + name);
-        };
+let reduce = (arr, folder, done) => {
     if (arr && arr.length > 0) {
         folder = folder || config[0].key + "=" + config[0].value;
         return async.map(arr, open, (err, result) => async.reduce(result, 0, pasteAsync, writeFile));
@@ -40,9 +37,7 @@ let reduce = (arr, done, folder) => {
     function writeFile(err, image) {
         if (!err)
             {
-                fs.mkdir(path.join(__dirname + "/public/queue"),
-                    () => fs.mkdir(path.join(__dirname + "/public/queue/" + folder),
-                        () => {
+                mkdirp(path.join(__dirname + "/public/queue/" + folder), () => {
                 let name = new Date() + 'paste.png';
                 //let name = '!first.png';
                 image.writeFile('./public/queue/' + folder + "/" + name, function (err) {
@@ -50,7 +45,7 @@ let reduce = (arr, done, folder) => {
                                 done(name);
                             });
                         }
-                    ));
+                    );
             }
     else logError(err);
     }
@@ -83,14 +78,14 @@ let reduce = (arr, done, folder) => {
     }
 };
 
-function generateInQueue(entry, callback) {
-    let folder = entry.key + "=" + entry.value;
+function generateInQueue(item, callback) {
+    let folder = item.type + "/" + item.location + "/" + item.duration;
     fs.mkdir(path.join(__dirname + "/public/queue"),
         () => fs.mkdir(path.join(__dirname + "/public/queue/" + folder),
-            () => reduce(entry.then, err => {
+            () => reduce(item.then, folder, err => {
                  console.log(folder + ": " + err);
                  callback(null);
-            }, folder)
+            })
         )
     );
 }
