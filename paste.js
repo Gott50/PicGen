@@ -4,7 +4,7 @@
 
 var path = require('path'),
     async = require('async'),
-    lwip = require('lwip');
+    lwip = require('pajk-lwip');
 fs = require('fs');
 config = require("./config");
 path = require("path");
