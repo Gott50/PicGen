@@ -11,11 +11,9 @@ path = require("path");
 var mkdirp = require('mkdirp');
 
 let reduce = (arr, folder, done = name => console.log(name)) => {
-    if (arr && arr.length > 0) {
-        console.error("TODO folder", folder)
-        folder = folder || config[0].key + "=" + config[0].value;
+    if (arr && arr.length > 0)
         return async.map(arr, open, (err, result) => async.reduce(result, 0, pasteAsync, writeFile));
-    } else done("empty src in config");
+    else done("empty src in config");
 
     function open(folder, callback) {
         let files = getFiles('./images/' + folder);

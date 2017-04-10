@@ -9,7 +9,6 @@ router.get('/ping', function (req, res) {
     res.send('pong');
 });
 
-/* GET home page. */
 let buildFolder = function (item) {
     return item.type + "/" + item.location + "/" + item.duration;
 };
@@ -26,16 +25,16 @@ router.get('/', function (req, res) {
     };
 
     let sendEntry = function (entry) {
-        let keyValue = buildFolder(entry);
+        let folder = buildFolder(entry);
         try {
-            let dir = "./public/queue/" + keyValue;
+            let dir = "./public/queue/" + folder;
             let files = fs.readdirSync(dir);
             if(files.length < 1) throw new Error("no Image in queue");
             sendFile(dir + "/" + files[0]);
 
         } catch (err) {
             console.log("send save Pic because of: " + err);
-            let dir = "./public/save/" + keyValue;
+            let dir = "./public/save/" + folder;
             sendFileSave(dir + "/" + fs.readdirSync(dir)[0])
         }
     };
@@ -54,7 +53,7 @@ router.get('/', function (req, res) {
             sendEntry(item);
     } else {
         console.log("not Found in config.js, sending default for: ", type, location, duration);
-        paste.reduce(catalog[0].src);
+        paste.reduce(catalog[0].src, buildFolder(catalog[0]));
         sendEntry(catalog[0]);
     }
 });
