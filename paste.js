@@ -91,7 +91,7 @@ function generateInQueue(item, callback) {
     );
 }
 
-// async.eachSeries(config, generateInQueue);
+async.eachSeries(config, generateInQueue);
 
 exports.reduce = reduce;
 
