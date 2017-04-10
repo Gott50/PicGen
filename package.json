@@ -6,8 +6,8 @@
     "start": "node app.js"
   },
   "engines": {
-    "node": "6.10.0",
-    "npm": "3.10.10"
+    "node": "7.8.0",
+    "npm": "4.2.0"
   },
   "dependencies": {
     "async": "^2.3.0",
