@@ -50,11 +50,11 @@ router.get('/', function (req, res) {
     let item = catalog[getCIndex(location, duration, catalog)];
     let folder = buildFolder(item);
     if (item) {
-            paste.reduce(item.then, folder);
+            paste.reduce(item.src, folder);
             sendEntry(item);
     } else {
         console.log("not Found in config.js, sending default for: ", type, location, duration);
-        paste.reduce(catalog[0].then);
+        paste.reduce(catalog[0].src);
         sendEntry(catalog[0]);
     }
 });

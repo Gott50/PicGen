@@ -15,7 +15,7 @@ let reduce = (arr, folder, done = name => console.log(name)) => {
         console.error("TODO folder", folder)
         folder = folder || config[0].key + "=" + config[0].value;
         return async.map(arr, open, (err, result) => async.reduce(result, 0, pasteAsync, writeFile));
-    } else done("empty then in config");
+    } else done("empty src in config");
 
     function open(folder, callback) {
         let files = getFiles('./images/' + folder);
@@ -83,7 +83,7 @@ function generateInQueue(item, callback) {
     let folder = item.type + "/" + item.location + "/" + item.duration;
     fs.mkdir(path.join(__dirname + "/public/queue"),
         () => fs.mkdir(path.join(__dirname + "/public/queue/" + folder),
-            () => reduce(item.then, folder, err => {
+            () => reduce(item.src, folder, err => {
                  console.log(folder + ": " + err);
                  callback(null);
             })
