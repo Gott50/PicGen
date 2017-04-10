@@ -10,6 +10,9 @@ router.get('/ping', function (req, res) {
 });
 
 /* GET home page. */
+let buildFolder = function (item) {
+    return item.type + "/" + item.location + "/" + item.duration;
+};
 router.get('/', function (req, res) {
     console.log(req.query);
 
@@ -23,7 +26,7 @@ router.get('/', function (req, res) {
     };
 
     let sendEntry = function (entry) {
-        let keyValue = entry.key + "=" + entry.value;
+        let keyValue = buildFolder(entry);
         try {
             let dir = "./public/queue/" + keyValue;
             let files = fs.readdirSync(dir);
@@ -40,31 +43,35 @@ router.get('/', function (req, res) {
     let type = req.query.type;
     let location = req.query.location;
     let duration = req.query.duration;
-    let config = config.filter(el => filterType(el, type));
-    let item = config[getCIndex(location, duration)];
-    let folder = item.type + "/" + item.location + "/" + item.duration;
+    let catalog = config;
+    if (type)
+        catalog = config.filter(el => filterType(el, type));
+    console.log(catalog)
+    let item = catalog[getCIndex(location, duration, catalog)];
+    let folder = buildFolder(item);
     if (item) {
             paste.reduce(item.then, folder);
             sendEntry(item);
     } else {
-        console.log("not Found in config.js: ", type, location, duration);
-        paste.reduce(config[0].then);
-        sendEntry(config[0]);
+        console.log("not Found in config.js, sending default for: ", type, location, duration);
+        paste.reduce(catalog[0].then);
+        sendEntry(catalog[0]);
     }
 });
 function filterType(element, type) {
-    return element.type = type;
+    return element.type === type;
 }
 
-function getCIndex(location, duration) {
+function getCIndex(location, duration, config = config) {
     location = parsLocation(location);
     duration = parsDuration(duration);
     console.log(location, duration);
     for (let i = 0; i < config.length; i++) {
         let item = config[i];
-        if (location === item.location && duration === item.duration) {
+        if (location === item.location &&
+            ((Array.isArray(item.duration) && item.duration.includes(duration))
+            || duration === item.duration))
             return i;
-        }
     }
     return 0;
 

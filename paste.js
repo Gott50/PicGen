@@ -10,8 +10,9 @@ config = require("./config");
 path = require("path");
 var mkdirp = require('mkdirp');
 
-let reduce = (arr, folder, done) => {
+let reduce = (arr, folder, done = name => console.log(name)) => {
     if (arr && arr.length > 0) {
+        console.error("TODO folder", folder)
         folder = folder || config[0].key + "=" + config[0].value;
         return async.map(arr, open, (err, result) => async.reduce(result, 0, pasteAsync, writeFile));
     } else done("empty then in config");
@@ -90,7 +91,7 @@ function generateInQueue(item, callback) {
     );
 }
 
-async.eachSeries(config, generateInQueue);
+// async.eachSeries(config, generateInQueue);
 
 exports.reduce = reduce;
 
