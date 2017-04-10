@@ -4,6 +4,7 @@ let paste = require("./paste");
 let config = require("./config");
 const async = require("async");
 const path = require('path');
+const mkdirp = require('mkdirp');
 
 router.get('/ping', function (req, res) {
     res.send('pong');
@@ -97,5 +98,17 @@ function parsLocation(location) {
         }
     else return "home";
 }
+
+function generateInQueue(item, callback) {
+    let folder = buildFolder(item);
+    mkdirp(path.join(__dirname + "/public/queue/" + folder),
+            () => paste.reduce(item.src, folder, err => {
+                console.log(folder + ": " + err);
+                callback(null);
+            })
+    );
+}
+
+async.eachSeries(config, generateInQueue);
 
 module.exports = router;

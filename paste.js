@@ -77,20 +77,6 @@ let reduce = (arr, folder, done = name => console.log(name)) => {
     }
 };
 
-function generateInQueue(item, callback) {
-    let folder = item.type + "/" + item.location + "/" + item.duration;
-    fs.mkdir(path.join(__dirname + "/public/queue"),
-        () => fs.mkdir(path.join(__dirname + "/public/queue/" + folder),
-            () => reduce(item.src, folder, err => {
-                 console.log(folder + ": " + err);
-                 callback(null);
-            })
-        )
-    );
-}
-
-async.eachSeries(config, generateInQueue);
-
 exports.reduce = reduce;
 
 
