@@ -24,7 +24,6 @@ router.get('/', function (req, res) {
         let file = path.join(__dirname + "/" + img);
         res.sendFile(file, () => console.log("send save: " + img));
     };
-
     let sendEntry = function (entry) {
         let folder = buildFolder(entry);
         try {
@@ -36,9 +35,19 @@ router.get('/', function (req, res) {
         } catch (err) {
             console.log("send save Pic because of: " + err);
             let dir = "./public/save/" + folder;
-            sendFileSave(dir + "/" + fs.readdirSync(dir)[0])
+            let readdirSync = fs.readdirSync(dir);
+            console.log("readdirSync:", readdirSync)
+            let randomInt = getRandomInt(0,readdirSync.length);
+            console.log("randomInt:", randomInt)
+            sendFileSave(dir + "/" + readdirSync[randomInt])
         }
     };
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
 
     let type = req.query.type;
     let location = req.query.location;
