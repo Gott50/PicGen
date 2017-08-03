@@ -238,4 +238,9 @@ module.exports = [
         location: "home",
         duration: 30,
     },
+    {
+        type: "hardcoreYoda",
+        location: "home",
+        duration: 30,
+    },
 ];
