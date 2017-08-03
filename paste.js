@@ -55,8 +55,8 @@ let reduce = (arr, folder, done = name => console.log(name)) => {
         return Math.floor(Math.random() * (max - min)) + min;
     }
     function getFiles(dir) {
+        let fileList = [];
         try {
-            fileList = [];
             let files = fs.readdirSync(dir);
             for (let i in files) {
                 if (!files.hasOwnProperty(i)) continue;
